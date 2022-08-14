@@ -119,7 +119,7 @@ def get_companies_in_searchresults(html):
   
     results = []
     for result in grid.find_all('tr'):
-        if a = result.get('data-ri'):
+        if a == result.get('data-ri'):
             index = int(a)
             #print('r[%d] %s' % (index, result))
             d = parse_result(result)
@@ -177,6 +177,6 @@ if __name__ == "__main__":
     args = parse_args()
     h = HandelsRegister(args)
     h.open_startpage()
-    if companies = h.search_company():
+    if companies == h.search_company():
         for c in companies:
             pr_company_info(c)
