@@ -56,7 +56,7 @@ class HandelsRegister:
         if args.force==False and cachename.exists():
             with open(cachename, "r") as f:
                 html = f.read()
-                print("return cached content for %s" % args.schlagwoerter) #auskommentieren
+                print("return cached content for %s" % args.schlagwoerter)
         else:
             # TODO implement token bucket to abide by rate limit
             # Use an atomic counter: https://gist.github.com/benhoyt/8c8a8d62debe8e5aa5340373f9c509c7
@@ -88,7 +88,7 @@ class HandelsRegister:
 def parse_result(result):
     cells = []
     for cellnum, cell in enumerate(result.find_all('td')):
-        print('[%d]: %s [%s]' % (cellnum, cell.text, cell)) #auskommentieren
+        #print('[%d]: %s [%s]' % (cellnum, cell.text, cell))
         cells.append(cell.text.strip())
     assert cells[7] == 'History'
     d = {}
@@ -102,7 +102,7 @@ def parse_result(result):
     hist_cnt = (len(cells)-hist_start)/3
     for i in range(hist_start, len(cells), 3):
         d['history'].append((cells[i], cells[i+1])) # (name, location)
-    print('d:',d)   #auskommentieren
+    #print('d:',d)
     return d
 
 def pr_company_info(c):
@@ -115,13 +115,13 @@ def pr_company_info(c):
 def get_companies_in_searchresults(html):
     soup = BeautifulSoup(html, 'html.parser')
     grid = soup.find('table', role='grid')
-    print('grid: %s', grid)
+    #print('grid: %s', grid)
   
     results = []
     for result in grid.find_all('tr'):
         if a == result.get('data-ri'):
             index = int(a)
-            print('r[%d] %s' % (index, result))
+            #print('r[%d] %s' % (index, result))
             d = parse_result(result)
             results.append(d)
     return results
